@@ -84,8 +84,48 @@ let dog = {
 
       Dog3.prototype.numLegs=2;
 
-      let beagles=new Dog('Snoopy');
+      let beagles=new Dog3('Snoopy');
 
       //iterate over all properties
+      //own property vs prototype property
+      function Cat(name) {
+        this.name = name;  //own property
+      }
       
+      Cat.prototype.numLegs = 4; // prototype property
+
+      let kitty=new Cat('Meow')
+
+      let ownProps = [];
+      let prototypeProps = [];
+
+      for (let property in kitty ){
+          if (kitty.hasOwnProperty(property)){
+              ownProps.push(property);
+          }else{
+              prototypeProps.push(property)
+          }
+      }
+
+
+      console.log(ownProps);
+      console.log(prototypeProps);
+
+      //making the prototype to a new object
+      Bird.prototype={
+          //dont forget to set the constructor
+          constructor: Bird,
+          numLegs:2,
+          eat:function(){
+              console.log('nom nom nom')
+          },
+          describe: function(){
+              console.log(`my name is ${this.name}`)
+          }
+      }
+
+      /*Understand Where an Object’s Prototype Comes From
+Just like people inherit genes from their parents, an object
+ inherits its prototype directly from the constructor function
+  that created it. */
 
