@@ -288,7 +288,60 @@ function Bird() {
   
   }
 
-  //Understand the Immediately Invoked Function Expression (IIFE)
+  //Understand the Immediately Invoked Function Expression (IIFE)\
+  (function () {
+    console.log("Chirp, chirp!");
+  })();
+
+  //transform this function into a IIFE
+  function makeNest() {
+    console.log("A cozy nest is ready");
+  }
+  
+  makeNest();
+  //IIFE
+
+  (function(){
+      console.log("A cozy nest is ready");
+  })();
+
+//use an IIFE to create a module
+let isCuteMixin = function(obj) {
+    obj.isCute = function() {
+      return true;
+    };
+  };
+  let singMixin = function(obj) {
+    obj.sing = function() {
+      console.log("Singing to an awesome tune");
+    };
+  };
+
+  function isCuteMixin (obj){
+    obj.isCute = function() {
+        return true;
+  }
+
+  function singMixin (obj){
+    obj.sing = function() {
+        console.log("Singing to an awesome tune");
+      };
+  }
+
+  let funModule= (function(){
+      return{
+        isCuteMixin:function (obj){
+            obj.isCute = function() {
+                return true;
+            };
+        },
+        singMixin: function(obj){
+            obj.sing = function() {
+                console.log("Singing to an awesome tune");
+              };
+      }
+    }
+  }) ();
 
 
 
