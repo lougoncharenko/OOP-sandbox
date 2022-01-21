@@ -128,4 +128,180 @@ let dog = {
 Just like people inherit genes from their parents, an object
  inherits its prototype directly from the constructor function
   that created it. */
+  let beagle = new Dog("Snoopy");
+  Dog.prototype.isPrototypeOf(beagle); //will return true
+
+  //understanding the prototype chain
+  Object.prototype.isPrototypeOf(Dog.prototype);
+  //objext.protyype is a prototype of Dog.Prototype
+  //prototype is an object and can have its on prototype
+
+
+  //inheritance
+  function Animal() { }
+
+Animal.prototype = {
+  constructor: Animal,
+eat: function() {
+    console.log("nom nom nom");
+  }
+};
+
+function Cat(name) {
+  this.name = name;
+}
+
+Cat.prototype = {
+  constructor: Cat,
+};
+
+function Bear(name) {
+  this.name = name;
+}
+
+Bear.prototype = {
+  constructor: Bear,
+ 
+};
+
+//Inherit Behaviors from a Supertype
+let animal = new Animal(); //has disadvantages
+let animal = Object.create(Animal.prototype); //better
+animal.eat();
+animal instanceof Animal; //true
+
+//more Object.create
+let duck=Object.create(Animal.prototype);
+let beagle=Object.create(Animal.prototype); 
+
+//Set the Child's Prototype to an Instance of the Parent
+Bird.prototype=Object.create(Animal.prototype);
+let duck=new Bird('Donald');
+duck.eat(); //inherits eat method
+
+//Reset an Inherited Constructor Property
+function Bird() { }
+Bird.prototype = Object.create(Animal.prototype);
+let duck = new Bird();
+
+Bird.prototype.constructor = Bird;
+duck.constructor
+
+//add methods after inheritance
+Bird.prototype.fly = function() {
+    console.log("I'm flying!");
+  };
+  duck.fly();
+
+  //override inherited methods
+  ChildObject.prototype = Object.create(ParentObject.prototype);
+  ChildObject.prototype.methodName = function() {};
+
+  //how to override
+  function Animal() { }
+Animal.prototype.eat = function() {
+  return "nom nom nom";
+};
+function Bird() { }
+
+Bird.prototype = Object.create(Animal.prototype);
+
+Bird.prototype.eat = function() {
+  return "peck peck peck";
+}; //bird overrrides the eat function
+
+//another example\
+function Penguin() { }
+Penguin.prototype = Object.create(Bird.prototype);
+Penguin.prototype.constructor = Penguin;
+
+Penguin.prototype.fly=function(){
+  return "Alas, this is a flightless bird."
+}
+
+
+//use a mixin to add common behaviors to unrelated objects
+let flyMixin =function(obj){
+    obj.fly=function(){
+        console.log('Flying, Woosh!')
+    }
+}
+let bird = {
+    name: "Donald",
+    numLegs: 2
+  };
+  
+  let plane = {
+    model: "777",
+    numPassengers: 524
+  };
+
+  flyMixin(bird);
+  flyMixin(plane);
+
+  bird.fly();
+  plane.fly();
+
+  //add mixin
+  let bird = {
+    name: "Donald",
+    numLegs: 2
+  };
+  
+  let boat = {
+    name: "Warrior",
+    type: "race-boat"
+  };
+  
+
+  let glideMixin=function(obj){
+    obj.glide=function(){
+      console.log('I am gliding')
+    }
+  };
+  
+  glideMixin(bird);
+  glideMixin(boat);
+  bird.glide();
+  boat.glide();
+
+//   Use Closure to Protect Properties
+// Within an Object from Being Modified Externally
+function Bird(){
+    let hatchedEgg=20;
+    this.getHatchedEggCount=function(){
+        return hatchedEgg
+    }
+}
+
+let ducky=new Bird();
+let ducky=Object.create(Bird);
+ducky.getHatchedEggCount;
+
+//closures
+function Bird() {
+    let weight = 15;
+    this.getWeight=function(){
+      return weight;
+    }
+  
+  
+  }
+
+  //Understand the Immediately Invoked Function Expression (IIFE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
